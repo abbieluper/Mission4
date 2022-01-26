@@ -40,9 +40,18 @@ namespace Mission4.Controllers
         [HttpPost]
         public IActionResult MovieForm(MovieModel model) // I didn't have to name it model -- I could've named it anything
         {
-            movieContext.Add(model);
-            movieContext.SaveChanges();
-            return View("Confirmation", model);
+            if (ModelState.IsValid)
+            {
+                movieContext.Add(model);
+                movieContext.SaveChanges();
+
+                return View("Confirmation", model);
+            }
+            else
+            {
+                return View(model);
+            }
+
         }
 
 
